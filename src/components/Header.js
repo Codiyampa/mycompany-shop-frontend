@@ -1,40 +1,37 @@
-import React from 'react'
-import { withRouter } from "react-router"
-import { Link, NavLink } from 'react-router-dom'
-import { Button, Menu, Icon } from 'antd'
+import React from 'react';
+import { withRouter } from "react-router";
+import { Link, NavLink } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
 
-const { SubMenu } = Menu
+const { SubMenu } = Menu;
 
 class Header extends React.Component {
   
 	state = {
-		current: '/',
-	};
+		current: '/'
+	}
 
-	handleClick = e => {
-		console.log('click ', e);
+	handleClick = (e) => {
 		this.setState({
-			current: e.key,
+			current: e.key
 		});
-	};
+	}
 	
 	render() {
-		const { location } = this.props
-		
 		return (
 			<header id="header">
 				<div class="ant-row">
-				
 					<div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4">
 						<div class="header-company">
-							<Link to="/">
-								<div class="header-company-name">MyCompany</div>
+							<Link to="/" >
+								<div class="header-company-name">
+									MyCompany
+								</div>
 							</Link>
 						</div>
 					</div>
-				
 					<div class="ant-col ant-col-xs-0 ant-col-sm-0 ant-col-md-18 ant-col-lg-18 ant-col-xl-19 ant-col-xxl-20">
-						<Menu onClick={this.handleClick} selectedKeys={[location.pathname]} mode="horizontal" id="nav">
+						<Menu onClick={this.handleClick} selectedKeys={[this.props.location.pathname]} mode="horizontal" id="nav">
 							<Menu.Item key="/">
 								<NavLink to="/" className="nav-text">
 									<Icon type="home" />
@@ -47,10 +44,9 @@ class Header extends React.Component {
 									Bestellen
 								</NavLink>
 							</Menu.Item>
-							<SubMenu
-							  title={
+							<SubMenu title={
 								<span className="submenu-title-wrapper">
-									<Icon type="heart" theme="twoTone" twoToneColorsty="#eb2f96" />
+									<Icon type="heart" />
 									Über uns
 								</span>
 							  }
@@ -97,11 +93,10 @@ class Header extends React.Component {
 							</Menu.Item>
 						</Menu>
 					</div>
-					
 				</div>
 			</header>
-		);
+		)
 	}
 }
 
-export default withRouter(Header)
+export default withRouter(Header);
