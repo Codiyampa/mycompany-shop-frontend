@@ -6,7 +6,7 @@ import { Menu, Icon } from 'antd';
 const { SubMenu } = Menu;
 
 class Header extends React.Component {
-  
+
 	state = {
 		current: '/'
 	}
@@ -16,7 +16,14 @@ class Header extends React.Component {
 			current: e.key
 		});
 	}
-	
+
+	getActiveMenuKey = () => {
+		if (this.props.location.pathname.includes('/order')) {
+			return '/order';
+		}
+		return this.props.location.pathname;
+	}
+
 	render() {
 		return (
 			<header id="header">
@@ -31,7 +38,7 @@ class Header extends React.Component {
 						</div>
 					</div>
 					<div class="ant-col ant-col-xs-0 ant-col-sm-0 ant-col-md-18 ant-col-lg-18 ant-col-xl-19 ant-col-xxl-20">
-						<Menu onClick={this.handleClick} selectedKeys={[this.props.location.pathname]} mode="horizontal" id="nav">
+						<Menu onClick={this.handleClick} selectedKeys={[this.getActiveMenuKey()]} mode="horizontal" id="nav">
 							<Menu.Item key="/">
 								<NavLink to="/" className="nav-text">
 									<Icon type="home" />
@@ -49,42 +56,42 @@ class Header extends React.Component {
 									<Icon type="heart" />
 									Über uns
 								</span>
-							  }
+							}
 							>
-							  <Menu.ItemGroup title="Location">
-								<Menu.Item key="/about/restaurant">
-									<NavLink to="/about/restaurant" className="nav-text">
-										Restaurant
-									</NavLink>
-								</Menu.Item>
-								<Menu.Item key="/about/vinothek">
-									<NavLink to="/about/vinothek" className="nav-text">
-										Vinothek
-									</NavLink>
-								</Menu.Item>
-								<Menu.Item key="/about/biergarten">
-									<NavLink to="/about/biergarten" className="nav-text">
-										Biergarten
-									</NavLink>
-								</Menu.Item>
-								<Menu.Item key="/about/oeffnungszeiten">
-									<NavLink to="/about/oeffnungszeiten" className="nav-text">
-										Öffnungszeiten
-									</NavLink>
-								</Menu.Item>
-							  </Menu.ItemGroup>
-							  <Menu.ItemGroup title="Bio Küche">
-								<Menu.Item key="/about/unsere-bio-lieferanten">
-									<NavLink to="/about/unsere-bio-lieferanten" className="nav-text">
-										Unsere Bio Lieferanten
-									</NavLink>
-								</Menu.Item>
-								<Menu.Item key="/about/unsere-zubereitung">
-									<NavLink to="/about/unsere-zubereitung" className="nav-text">
-										Unsere Zubereitung
-									</NavLink>
-								</Menu.Item>
-							  </Menu.ItemGroup>
+								<Menu.ItemGroup title="Location">
+									<Menu.Item key="/about/restaurant">
+										<NavLink to="/about/restaurant" className="nav-text">
+											Restaurant
+										</NavLink>
+									</Menu.Item>
+									<Menu.Item key="/about/vinothek">
+										<NavLink to="/about/vinothek" className="nav-text">
+											Vinothek
+										</NavLink>
+									</Menu.Item>
+									<Menu.Item key="/about/biergarten">
+										<NavLink to="/about/biergarten" className="nav-text">
+											Biergarten
+										</NavLink>
+									</Menu.Item>
+									<Menu.Item key="/about/oeffnungszeiten">
+										<NavLink to="/about/oeffnungszeiten" className="nav-text">
+											Öffnungszeiten
+										</NavLink>
+									</Menu.Item>
+								</Menu.ItemGroup>
+								<Menu.ItemGroup title="Bio Küche">
+									<Menu.Item key="/about/unsere-bio-lieferanten">
+										<NavLink to="/about/unsere-bio-lieferanten" className="nav-text">
+											Unsere Bio Lieferanten
+										</NavLink>
+									</Menu.Item>
+									<Menu.Item key="/about/unsere-zubereitung">
+										<NavLink to="/about/unsere-zubereitung" className="nav-text">
+											Unsere Zubereitung
+										</NavLink>
+									</Menu.Item>
+								</Menu.ItemGroup>
 							</SubMenu>
 							<Menu.Item key="/contact">
 								<NavLink to="/contact" className="nav-text">

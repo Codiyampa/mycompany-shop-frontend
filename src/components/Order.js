@@ -13,6 +13,27 @@ class Order extends React.Component {
 		filteredProducts: []
 	}
 
+	componentDidMount() {
+		const cart = this.props.cart;
+		this.setState({
+			cart: cart
+		});
+		this.getProductsData();
+	}
+
+	getProductsData = () => {
+		API.get(`/catalog/products/`, {})
+			.then(response => {
+				const products = response.data;
+				this.setState({
+					products: products,
+					filteredProducts: products
+				});
+				console.log(products);
+			})
+			.catch((error) => {console.log(error)});
+	}
+
 	addToCart = (id) => {
 		var tempCart = this.state.cart;
 		var tempProduct = tempCart.find( p => p.id === id );
@@ -27,25 +48,29 @@ class Order extends React.Component {
 		this.setState({
 			cart: tempCart
 		});
+
+		this.props.stateUpdater(tempCart, [], false);
 	}
-	
+
 	removeFromCart = (id) => {
 		var tempCart = this.state.cart;
 		var tempProduct = tempCart.find( p => p.id === id );
-		
+
 		if (tempProduct) {
 			if (tempProduct.productOrderAmount > 1) {
 				tempProduct.productOrderAmount--;
 			} else {
 				tempCart.splice(tempCart.findIndex(p => p.id === id), 1);
 			}
-		}		
-		
+		}
+
 		this.setState({
 			cart: tempCart
 		});
+
+		this.props.stateUpdater(tempCart, [], false);
 	}
-	
+
 	setFilter = (id) => {
 		var filteredProducts;
 		if (parseInt(id.key) === -1) {
@@ -58,14 +83,14 @@ class Order extends React.Component {
 			filteredProducts: filteredProducts
 		});
 	}
-	
+
 	getTotalPrice = () => {
 		if (typeof this.state.cart !== 'undefined' && this.state.cart.length > 0) {
 			return this.state.cart.map(item => item.price*item.productOrderAmount).reduce((prev, next) => prev + next);
 		}
 		return 0.0;
 	}
-	
+
 	render() {
 		return (
 			<div class="main-wrapper">
@@ -135,25 +160,8 @@ class Order extends React.Component {
 						</div>
 					</div>
 				</div>
-			</div> 
+			</div>
 		)
-	}
-	
-	getProductsData = () => {
-        API.get(`/catalog/products/`, {})
-            .then(response => {
-                const products = response.data;
-				this.setState({
-					products: products,
-					filteredProducts: products
-				});
-                console.log(products);
-			})
-            .catch((error) => {console.log(error)});
-    }
-	
-	async componentDidMount() {
-		this.getProductsData();
 	}
 }
 
