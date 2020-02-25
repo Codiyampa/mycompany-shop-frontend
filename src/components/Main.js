@@ -8,13 +8,31 @@ import Success from './Success';
 import About from './About';
 import Contact from './Contact';
 import Error from './Error';
+import API from "../utils/API";
 
 class Main extends React.Component {
 
 	state = {
+		products: [],
 		cart: [],
 		customer: [],
 		orderSuccess: false
+	}
+
+	componentDidMount() {
+		this.getProductsData();
+	}
+
+	getProductsData = () => {
+		API.get(`/catalog/products/`, {})
+			.then(response => {
+				const products = response.data;
+				this.setState({
+					products: products
+				});
+				console.log("rest api fetched");
+			})
+			.catch((error) => {console.log(error)});
 	}
 
 	stateUpdater = (cart, customer, orderSuccess) => {
@@ -30,7 +48,7 @@ class Main extends React.Component {
 			<main>
 				<Switch>
 					<Route exact path="/" component={Home}/>
-					<Route exact path="/order" render={props => <Order {...props} cart={this.state.cart} customer={this.state.customer} stateUpdater={this.stateUpdater} />}  />
+					<Route exact path="/order" render={props => <Order {...props} products={this.state.products} cart={this.state.cart} customer={this.state.customer} stateUpdater={this.stateUpdater} />}  />
 					<Route exact path="/order/checkout" render={props => <Checkout {...props} cart={this.state.cart} customer={this.state.customer} stateUpdater={this.stateUpdater} />} />
 					<Route path="/order/checkout/success" render={props => <Success {...props} customer={this.state.customer} orderSuccess={this.state.orderSuccess} stateUpdater={this.stateUpdater} />} />
 					<Route path="/about/:page" component={About}/>

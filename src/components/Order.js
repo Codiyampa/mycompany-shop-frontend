@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Row, Col, Button } from 'antd';
-import API from '../utils/API';
 import NumberFormat from 'react-number-format';
 
 class Order extends React.Component {
@@ -18,33 +17,30 @@ class Order extends React.Component {
 		this.setState({
 			cart: cart
 		});
-		this.getProductsData();
 	}
 
-	getProductsData = () => {
-		API.get(`/catalog/products/`, {})
-			.then(response => {
-				const products = response.data;
-				this.setState({
-					products: products,
-					filteredProducts: products
-				});
-				console.log(products);
-			})
-			.catch((error) => {console.log(error)});
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (prevState.products !== nextProps.products) {
+			return {
+				products: nextProps.products,
+				filteredProducts: nextProps.products
+			};
+		}
+		// Return null to indicate no change to state.
+		return null;
 	}
 
 	addToCart = (id) => {
 		var tempCart = this.state.cart;
 		var tempProduct = tempCart.find( p => p.id === id );
-		
+
 		if (tempProduct == null) {
 			tempCart.push(this.state.products.find(p => p.id === id));
 			tempCart.find( p => p.id === id ).productOrderAmount = 1;
 		} else {
 			tempProduct.productOrderAmount++;
 		}
-		
+
 		this.setState({
 			cart: tempCart
 		});
@@ -117,12 +113,12 @@ class Order extends React.Component {
 							<Menu.Item key="13">Alkoholische Getränke</Menu.Item>
 						</Menu>
 					</div>
-					
+
 					<div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-12 ant-col-lg-12 ant-col-xl-14 ant-col-xxl-16">
 						<section class="main-container">
 							<h1>Jetzt bestellen!</h1>
 							<div class="product-list">
-								{this.state.filteredProducts.map(product => 
+								{this.state.filteredProducts.map(product =>
 									<Row>
 										<Col xs={11} sm={16} md={12} lg={16} xl={16}><h3>{product.name}</h3></Col>
 										<Col xs={4} sm={3} md={6} lg={3} xl={3}><NumberFormat value={product.price} fixedDecimalScale="true" decimalScale="2" decimalSeparator="," displayType="text" thousandSeparator={false} suffix=" &euro;" /></Col>
@@ -132,7 +128,7 @@ class Order extends React.Component {
 							</div>
 						</section>
 					</div>
-					
+
 					<div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4">
 						<div class="cart">
 							<h2>Bestellliste</h2>
