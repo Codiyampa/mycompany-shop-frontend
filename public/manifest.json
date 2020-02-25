@@ -1,6 +1,6 @@
 {
-  "short_name": "myCompany",
-  "name": "myCompany Bestell-App",
+  "short_name": "myOrder",
+  "name": "myOrder Bestell-App",
   "icons": [
     {
       "src": "favicon.ico",

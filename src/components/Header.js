@@ -32,7 +32,7 @@ class Header extends React.Component {
 						<div class="header-company">
 							<Link to="/" >
 								<div class="header-company-name">
-									MyCompany
+									MyOrder
 								</div>
 							</Link>
 						</div>
