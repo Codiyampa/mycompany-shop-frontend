@@ -102,8 +102,16 @@ code {
 	margin-bottom: 10px;
 }
 .checkout .ant-form-vertical .ant-form-item .ant-form-item {
-	padding-bottom: 0px;
-	margin-bottom: 0px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.order-id {
+	margin-bottom: 50px;
+}
+
+.order-notification {
+	margin-top: 15px;
 }
 
 #footer {
@@ -149,6 +157,6 @@ code {
 /* This applies from 750px onwards */
 @media (min-width: 750px) {
 	.cart {
-		padding: 0 0px 0px 6px;
+		padding: 0 0 0 6px;
 	}
 }

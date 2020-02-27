@@ -11,7 +11,7 @@ class Checkout extends React.Component {
 	state = {
 		cart: [],
 		customer: [],
-		orderSuccess: false
+		orderId: false
 	}
 
 	componentDidMount() {
@@ -68,12 +68,13 @@ class Checkout extends React.Component {
 
 				API.post(`/catalog/orders`, order)
 					.then(response => {
+						const orderId = response.data;
 						console.log(response);
 						this.setState({
-							orderSuccess: true,
+							orderId: orderId,
 							customer: order.customer
 						});
-						this.props.stateUpdater([], order.customer, true);
+						this.props.stateUpdater([], order.customer, orderId);
 						this.props.history.push("/order/checkout/success");
 					})
 					.catch(error => {

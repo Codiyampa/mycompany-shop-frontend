@@ -16,7 +16,7 @@ class Main extends React.Component {
 		products: [],
 		cart: [],
 		customer: [],
-		orderSuccess: false
+		orderId: false
 	}
 
 	componentDidMount() {
@@ -35,11 +35,11 @@ class Main extends React.Component {
 			.catch((error) => {console.log(error)});
 	}
 
-	stateUpdater = (cart, customer, orderSuccess) => {
+	stateUpdater = (cart, customer, orderId) => {
 		this.setState({
 			cart: cart,
 			customer: customer,
-			orderSuccess: orderSuccess
+			orderId: orderId
 		});
 	}
 
@@ -50,7 +50,7 @@ class Main extends React.Component {
 					<Route exact path="/" component={Home}/>
 					<Route exact path="/order" render={props => <Order {...props} products={this.state.products} cart={this.state.cart} customer={this.state.customer} stateUpdater={this.stateUpdater} />}  />
 					<Route exact path="/order/checkout" render={props => <Checkout {...props} cart={this.state.cart} customer={this.state.customer} stateUpdater={this.stateUpdater} />} />
-					<Route path="/order/checkout/success" render={props => <Success {...props} customer={this.state.customer} orderSuccess={this.state.orderSuccess} stateUpdater={this.stateUpdater} />} />
+					<Route path="/order/checkout/success" render={props => <Success {...props} customer={this.state.customer} orderId={this.state.orderId} stateUpdater={this.stateUpdater} />} />
 					<Route path="/about/:page" component={About}/>
 					<Route path="/contact" component={Contact}/>
 					<Route component={Error} />
