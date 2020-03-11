@@ -8,7 +8,7 @@ import Success from './Success';
 import About from './About';
 import Contact from './Contact';
 import Error from './Error';
-import API from "../utils/API";
+import ProductService from '../services/api/ProductService';
 
 class Main extends React.Component {
 
@@ -24,15 +24,12 @@ class Main extends React.Component {
 	}
 
 	getProductsData = () => {
-		API.get(`/catalog/products/`, {})
-			.then(response => {
-				const products = response.data;
+		ProductService.getAll()
+			.then((response) => {
 				this.setState({
-					products: products
+					products: response
 				});
-				console.log("rest api fetched");
-			})
-			.catch((error) => {console.log(error)});
+			});
 	}
 
 	stateUpdater = (cart, customer, orderId) => {

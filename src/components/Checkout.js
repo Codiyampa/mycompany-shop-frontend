@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Form, Input, Select, Row, Col, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
-import API from '../utils/API';
+import OrderService from '../services/api/OrderService';
 
 const { Option } = Select;
 
@@ -66,20 +66,16 @@ class Checkout extends React.Component {
 				console.log('Received values of form: ', values);
 				var order = this.buildRequestPayload(values);
 
-				API.post(`/catalog/orders`, order)
+				OrderService.create(order)
 					.then(response => {
-						const orderId = response.data;
-						console.log(response);
+						const orderId = response;
 						this.setState({
 							orderId: orderId,
 							customer: order.customer
 						});
 						this.props.stateUpdater([], order.customer, orderId);
 						this.props.history.push("/order/checkout/success");
-					})
-					.catch(error => {
-						console.log(error);
-					})
+					});
 			}
 		})
 
