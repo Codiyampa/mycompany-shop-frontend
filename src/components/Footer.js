@@ -11,7 +11,7 @@ const Footer = () => {
 				<div>
 					<Link to="/contact" class="grey-link">Impressum</Link>
 					<Link to="/contact" class="grey-link">Datenschutz</Link>
-					 © 2020 | Bestelle mit <span class="heart">❤</span>
+					<div class="copyright">© 2020 myOrder</div>
 				</div>
 			</div>
 		</footer>

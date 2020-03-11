@@ -10,10 +10,6 @@ myorder-frontend is a single-page application (SPA) built with React and Javascr
 * Firefox 54 (Mar 2017)
 * Safari 10 (Jul 2016)
 * Opera 55 (Aug 2018)
-* Browser screen width bigger than 750px
-
-### Currently Not Supported
-* Browser screen width smaller than 750px (2 menus need an adaption for mobile screen, this will be done in a further commit).
 
 ## Installation
 * You need node.js and npm installed on your development environment
@@ -47,9 +43,11 @@ The project is currently split in two modules:
 * `utils`: Helper classes
 
 ## Live Demo
-A live demo is hosted with the free spark plan on Firebase: `https://myorder-frontend.firebaseapp.com`
+Live demo of frontend on Firebase: [https://myorder-frontend.firebaseapp.com](https://myorder-frontend.firebaseapp.com)  
+Live demo of backend on Cloud Run: [https://quarkus-backend-5bwtxjcuiq-uc.a.run.app](https://quarkus-backend-5bwtxjcuiq-uc.a.run.app)   
 
-You can place an order and then check all submitted orders with: `curl -w "\n" https://quarkus-backend-5bwtxjcuiq-uc.a.run.app/catalog/orders`
+You can place an order and finally check your submitted order with:  
+`curl -w "\n" https://quarkus-backend-5bwtxjcuiq-uc.a.run.app/catalog/orders/{orderId}`
 
-The backend is a deployed docker container on Cloud Run, which is serverless and fully managed. That means the backend scales automatically but also stops when there are no requests.
-It may happen that you have to wait 2-5 seconds until the quarkus container is running, and the products can be loaded by the frontend.
+The backend is a docker container deployed on Cloud Run, which is serverless and fully managed. That means the backend scales automatically but also stops when there are no requests.
+It may happen that you have to wait some seconds until the quarkus container is running, and the frontend is able to access the REST API.
