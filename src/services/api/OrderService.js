@@ -2,7 +2,7 @@ import request from './Request';
 
 function create(content) {
     return request({
-        url:    '/catalog/orders/',
+        url:    '/v1/orders/',
         method: 'POST',
         data:   content
     });

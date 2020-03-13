@@ -2,14 +2,14 @@ import request from './Request';
 
 function get(id) {
     return request({
-        url:    `/catalog/products/${id}`,
+        url:    `/v1/products/${id}`,
         method: 'GET'
     });
 }
 
 function getAll() {
     return request({
-        url:    `/catalog/products`,
+        url:    `/v1/products`,
         method: 'GET'
     });
 }
